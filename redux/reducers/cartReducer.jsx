@@ -12,7 +12,7 @@ export default function (state = initialState, action) {
 
         //add item case
         case ADD_ITEM:
-            const findItem = state.cart.findIndex((item) => item._id === action.payload._id)
+            const findItem = state.cart.findIndex((item) => item.id === action.payload.id)
 
             if (findItem >= 0) {
                 state.cart[findItem].qtn += 1
@@ -31,7 +31,7 @@ export default function (state = initialState, action) {
 
         //remove item case
         case REMOVE_ITEM:
-            const findItemIndex = state.cart.findIndex((item) => item._id === action.payload._id)
+            const findItemIndex = state.cart.findIndex((item) => item.id === action.payload.id)
 
             if (state.cart[findItemIndex].qtn >= 1) {
                 state.cart[findItemIndex].qtn -= 1
@@ -51,7 +51,7 @@ export default function (state = initialState, action) {
 
         //delete cart case
         case DELETE_CART:
-            const deleteCart = state.cart.filter((item) => item._id !== action.payload)
+            const deleteCart = state.cart.filter((item) => item.id !== action.payload)
             return {
                 ...state,
                 cart: deleteCart

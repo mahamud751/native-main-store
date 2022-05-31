@@ -1,6 +1,6 @@
 import { StyleSheet, Text, TouchableOpacity, FlatList, View, ScrollView, Image, ImageBackground } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import Category from '../components/Category'
+
 import FlashSale from '../components/FlashSale'
 import Popular from '../components/Popular'
 import LastView from '../components/LastView'
@@ -11,6 +11,7 @@ import { add_item } from '../../redux/actions/cartAction'
 import Products from '../../Products'
 import { useNavigation } from '@react-navigation/native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import Category from "../components/Category"
 
 import { Icon, withBadge } from '@rneui/themed';
 
@@ -21,17 +22,28 @@ export default function Home({ navigation }) {
     const BadgedIcon = withBadge(getState.length)(Icon)
     const [products, setProducts] = useState([])
     useEffect(() => {
-        fetch('https://floating-plateau-70387.herokuapp.com/products')
+        fetch('https://guarded-garden-69209.herokuapp.com/products')
             .then(res => res.json())
             .then(data => {
                 setProducts(data)
             })
     }, [products])
+
+    const [category, setCategory] = useState([])
+    useEffect(() => {
+        fetch('https://guarded-garden-69209.herokuapp.com/category')
+            .then(res => res.json())
+            .then(data => {
+                setCategory(data)
+            })
+    }, [category])
     // console.log('ss', products)
     const dispatch = useDispatch()
     const handleAddItem = (e) => {
         dispatch(add_item(e))
     }
+
+
     const navigator = useNavigation()
     // const BadgedIcon = withBadge(1)(Icon)
 
@@ -57,7 +69,37 @@ export default function Home({ navigation }) {
                     </TouchableOpacity>
                 </View>
 
-                <Category />
+                {/* <Category /> */}
+                <View>
+                    <FlatList
+                        data={category}
+                        // horizontal
+                        numColumns={3}
+
+                        keyExtractor={(key) => key._id}
+                        renderItem={({ item }) => {
+                            return (
+                                <View style={{ padding: 6 }}>
+                                    <TouchableOpacity
+                                        onPress={() => navigation.navigate('CategorySingle', { categoryDetails: item._id })}
+                                    >
+                                        <View style={styles.card}>
+                                            <Image
+                                                style={styles.imgStyle}
+                                                source={{ uri: item.img }}
+                                                resizeMode='cover'
+                                            />
+                                            <View style={{ height: 40 }}>
+                                                <Text style={styles.cardTitle}>{item.name}</Text>
+                                            </View>
+                                        </View>
+                                    </TouchableOpacity>
+                                </View>
+                            )
+                        }}
+                    />
+
+                </View>
                 <SliderCard />
                 <FlashSale />
                 <Popular />
@@ -138,6 +180,30 @@ const styles = StyleSheet.create({
     image: {
         width: 230,
         height: 200,
+    },
+    titleSection: {
+        fontWeight: 'bold',
+        fontSize: 20,
+        color: '#096266'
+    },
+    cardParent: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        margin: 10
+    },
+    card: {
+        width: 90,
+        backgroundColor: '#C9C4C0',
+        borderRadius: 10,
+
+    },
+    imgStyle: {
+        width: 90,
+        height: 70
+    },
+    cardTitle: {
+        textAlign: 'center',
+        color: '#096266'
     },
 
 })

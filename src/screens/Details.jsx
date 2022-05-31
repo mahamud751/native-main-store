@@ -9,7 +9,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 export default function Details(props) {
   const [products, setProducts] = useState([])
 
-  const { _id } = props.route.params.item
+  const { id } = props.route.params.item
   const getState = useSelector((state) => state.cartReducer.cart)
 
   {/* filter for single cart*/ }
@@ -18,7 +18,7 @@ export default function Details(props) {
 
 
   const setState = () => {
-    const item = getState.filter((pd) => pd._id === _id)
+    const item = getState.filter((pd) => pd.id === id)
     setProducts(item)
   }
 
@@ -35,20 +35,20 @@ export default function Details(props) {
     dispatch(remove_item(e))
   }
   const navigation = useNavigation()
-  const handleCart = (_id) => {
-    dispatch(delete_cart(_id));
+  const handleCart = (id) => {
+    dispatch(delete_cart(id));
     navigation.navigate('Home')
   };
   useEffect(() => {
     setState()
-  }, [_id])
+  }, [id])
   return (
     <ImageBackground
       source={{ uri: "https://images.unsplash.com/photo-1604076984203-587c92ab2e58?ixlib=rb-1.2.1&raw_url=true&q=60&fm=jpg&crop=entropy&cs=tinysrgb&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDR8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500" }} style={{}}
     >
       <FlatList
         data={products}
-        keyExtractor={(key) => key._id}
+        keyExtractor={(key) => key.id}
         renderItem={({ item }) => {
           return (
             <View >
@@ -72,7 +72,7 @@ export default function Details(props) {
 
                       <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 10 }}>
                         <TouchableOpacity
-                          onPress={item.qtn <= 1 ? () => handleCart(item._id) : () => handleRemoveItem(item)}
+                          onPress={item.qtn <= 1 ? () => handleCart(item.id) : () => handleRemoveItem(item)}
                         >
                           <Text style={[styles.btn, { backgroundColor: "black", color: "white", borderRadius: 10 }]}>-</Text>
                         </TouchableOpacity>
@@ -88,11 +88,11 @@ export default function Details(props) {
                       </View>
                     </View>
                     <View>
-                      <Text style={{ fontSize: 20, fontWeight: "bold" }}>৳{item.price}</Text>
+                      <Text style={{ fontSize: 20, fontWeight: "bold" }}>৳{item.realPrice}</Text>
                     </View>
                     <View style={{ marginVertical: 10 }}>
                       <Text>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima sed possimus doloribus asperiores rem obcaecati cupiditate consectetur suscipit,
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima sed possimus doloribus asperiores rem obcaecati cupiditate consecteturpit,
                         necessitatibus illo distinctio
                       </Text>
                     </View>
@@ -103,11 +103,11 @@ export default function Details(props) {
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                       <View style={{ marginVertical: 10 }}>
                         <Text>Total Price</Text>
-                        <Text style={{ fontSize: 20, fontWeight: "bold" }}>{item.price * item.qtn}</Text>
+                        <Text style={{ fontSize: 20, fontWeight: "bold" }}>{item.realPrice * item.qtn}</Text>
                       </View>
                       <View>
                         <TouchableOpacity
-                          onPress={() => handleCart(item._id)}
+                          onPress={() => handleCart(item.id)}
                         >
                           <Ionicons name="remove-circle"
                             size={30}

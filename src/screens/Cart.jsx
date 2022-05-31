@@ -17,7 +17,7 @@ export default function Cart() {
     let price = 0;
 
     getState.map((pd) => {
-      price = pd.price * pd.qtn + price
+      price = pd.realPrice * pd.qtn + price
       const grandTotal = price + shipping + vat
       setPrice(grandTotal);
     });
@@ -82,13 +82,13 @@ export default function Cart() {
                           </View>
                         </View>
                         <View>
-                          <Text style={{ fontSize: 15, fontWeight: "bold", marginTop: 40 }}>{item.price * item.qtn}</Text>
+                          <Text style={{ fontSize: 15, fontWeight: "bold", marginTop: 40 }}>{item.realPrice * item.qtn}</Text>
 
 
                         </View>
                         <View>
                           <TouchableOpacity
-                            onPress={() => handleCart(item._id)}
+                            onPress={() => handleCart(item.id)}
                             style={{ marginTop: 37 }}
                           >
                             <Ionicons name="remove-circle"

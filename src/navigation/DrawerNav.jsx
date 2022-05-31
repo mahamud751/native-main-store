@@ -13,6 +13,7 @@ import Login from '../screens/Login'
 import CustomDrawer from './CustomDrawer'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import CategorySingle from '../screens/CategorySingle'
 
 
 const Stack = createNativeStackNavigator();
@@ -32,6 +33,11 @@ const MainTab = () => {
             <Stack.Screen
                 name="SingleCategory"
                 component={SingleCategory}
+                options={{ headerShown: false }}
+            />
+            <Stack.Screen
+                name="CategorySingle"
+                component={CategorySingle}
                 options={{ headerShown: false }}
             />
             <Stack.Screen
