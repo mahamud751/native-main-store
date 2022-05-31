@@ -14,6 +14,7 @@ import CustomDrawer from './CustomDrawer'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import CategorySingle from '../screens/CategorySingle'
+import Checkout from '../screens/Checkout'
 
 
 const Stack = createNativeStackNavigator();
@@ -43,6 +44,11 @@ const MainTab = () => {
             <Stack.Screen
                 name="Details"
                 component={Details}
+            // options={{ headerShown: false }}
+            />
+            <Stack.Screen
+                name="Checkout"
+                component={Checkout}
             // options={{ headerShown: false }}
             />
             <Stack.Screen

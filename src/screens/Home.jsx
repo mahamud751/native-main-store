@@ -89,9 +89,10 @@ export default function Home({ navigation }) {
                                                 source={{ uri: item.img }}
                                                 resizeMode='cover'
                                             />
-                                            <View style={{ height: 40 }}>
-                                                <Text style={styles.cardTitle}>{item.name}</Text>
-                                            </View>
+
+                                        </View>
+                                        <View style={{ height: 40 }}>
+                                            <Text style={styles.cardTitle}>{item.name}</Text>
                                         </View>
                                     </TouchableOpacity>
                                 </View>
@@ -105,57 +106,46 @@ export default function Home({ navigation }) {
                 <Popular />
                 <View>
                     <Text style={styles.titleSection}>Category</Text>
-                    <View>
-                        <Text style={styles.titleSection}>Fast Food</Text>
-                        <FlatList
-                            data={products}
-                            horizontal
-                            keyExtractor={(key) => key._id}
-                            renderItem={({ item }) => {
-                                return (
-                                    <View>
-                                        <View>
-                                            <Image source={{ uri: item.img }} style={styles.image} />
-                                        </View>
-                                        <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginVertical: 10 }}>
-                                            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{item.name}</Text>
-                                            <Text style={{ fontSize: 20, fontWeight: '500', marginVertical: 6 }}>৳{item.price}</Text>
-                                            <TouchableOpacity
-                                                onPress={() => navigation.navigate('Details', { item }, handleAddItem(item))}
-                                                style={{ padding: 10, backgroundColor: 'red', borderRadius: 25, width: 120 }}
-                                            >
-                                                <Text style={{ textAlign: 'center', color: 'white' }} >Buy Now</Text>
-                                            </TouchableOpacity>
-                                        </View>
-                                    </View>
-                                )
-                            }}
 
-                        />
-                    </View>
                     <View>
-                        <Text style={styles.titleSection}>Fashion</Text>
+
                         <FlatList
-                            data={products}
-                            horizontal
+                            data={category}
+                            // horizontal
                             keyExtractor={(key) => key._id}
                             renderItem={({ item }) => {
                                 return (
-                                    <View>
+                                    <>
                                         <View>
-                                            <Image source={{ uri: item.img }} style={styles.image} />
+                                            <Text style={styles.titleSection}>{item.name}</Text>
                                         </View>
-                                        <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginVertical: 10 }}>
-                                            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{item.name}</Text>
-                                            <Text style={{ fontSize: 20, fontWeight: '500', marginVertical: 6 }}>৳{item.price}</Text>
-                                            <TouchableOpacity
-                                                onPress={() => navigation.navigate('Details', { item }, handleAddItem(item))}
-                                                style={{ padding: 10, backgroundColor: 'red', borderRadius: 25, width: 120 }}
-                                            >
-                                                <Text style={{ textAlign: 'center', color: 'white' }} >Buy Now</Text>
-                                            </TouchableOpacity>
-                                        </View>
-                                    </View>
+                                        <FlatList
+                                            data={item.products}
+                                            horizontal
+                                            keyExtractor={(key) => key._id}
+                                            renderItem={({ item }) => {
+                                                return (
+                                                    <View>
+                                                        <View>
+                                                            <Image source={{ uri: item.img }} style={styles.image} />
+                                                        </View>
+                                                        <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginVertical: 10 }}>
+                                                            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{item.name}</Text>
+                                                            <Text style={{ fontSize: 20, fontWeight: '500', marginVertical: 6 }}>৳{item.price}</Text>
+                                                            <TouchableOpacity
+                                                                onPress={() => navigation.navigate('Details', { item }, handleAddItem(item))}
+                                                                style={{ padding: 10, backgroundColor: 'red', borderRadius: 25, width: 120 }}
+                                                            >
+                                                                <Text style={{ textAlign: 'center', color: 'white' }} >Buy Now</Text>
+                                                            </TouchableOpacity>
+                                                        </View>
+                                                    </View>
+                                                )
+                                            }}
+
+                                        />
+                                    </>
+
                                 )
                             }}
 
@@ -178,8 +168,11 @@ const styles = StyleSheet.create({
         color: '#096266'
     },
     image: {
-        width: 230,
-        height: 200,
+        width: 110,
+        height: 90,
+        borderRadius: 10,
+        margin: 10
+
     },
     titleSection: {
         fontWeight: 'bold',
@@ -194,12 +187,13 @@ const styles = StyleSheet.create({
     card: {
         width: 90,
         backgroundColor: '#C9C4C0',
-        borderRadius: 10,
+        borderRadius: 100,
 
     },
     imgStyle: {
         width: 90,
-        height: 70
+        height: 90,
+        borderRadius: 100,
     },
     cardTitle: {
         textAlign: 'center',

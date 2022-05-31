@@ -122,7 +122,7 @@ export default function Cart() {
 
               <View style={{ marginTop: 30 }}>
                 <TouchableOpacity
-                  onPress={() => navigation.navigate('PlaceOrder')}
+                  onPress={() => navigation.navigate('Checkout')}
                   style={{ width: "100%", backgroundColor: "#C24448", padding: 16, borderRadius: 50 }}>
                   <Text style={{ color: "white", textAlign: "center" }}>Place Order</Text>
                 </TouchableOpacity>
